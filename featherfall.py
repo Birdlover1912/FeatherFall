@@ -5,7 +5,7 @@ pygame.font.init()
 
 # GLOBALS VARS
 s_width = 800
-s_height = 700
+s_height = 625
 play_width = 300  # meaning 300 // 10 = 30 width per block
 play_height = 600  # meaning 600 // 20 = 30 height per block
 block_size = 30
@@ -119,7 +119,7 @@ T = [['.....',
       '.....']]
 
 shapes = [S, Z, I, O, J, L, T]
-shape_colors = [(0, 255, 0), (255, 0, 0), (0, 255, 255), (255, 255, 0), (255, 165, 0), (0, 0, 255), (128, 0, 128)]
+shape_colors = [(171, 242, 251), (181, 137, 239), (169, 100, 205), (155, 119, 218), (152, 216, 255), (121, 109, 206), (180, 255, 216), (81, 218, 207), (158, 245, 207), (217, 162, 241), (213, 232, 255)]
 # index 0 - 6 represent shape
 
 
@@ -185,6 +185,17 @@ def get_shape():
     return Piece(5, 0, random.choice(shapes))
 
 
+def draw_text_top(surface, text, size, color):
+    font = pygame.font.SysFont("comicsans", size, bold=True)
+    label = font.render(text, 1, color)
+
+    surface.blit(label, (
+        top_left_x + play_width / 2 - (label.get_width() / 2),
+        top_left_y + play_height / 2 - label.get_height() / 2 - 200
+    ))
+
+
+
 def draw_text_middle(surface, text, size, color):
     font = pygame.font.SysFont("comicsans", size, bold=True)
     label = font.render(text, 1, color)
@@ -197,9 +208,9 @@ def draw_grid(surface, grid):
     sy = top_left_y
 
     for i in range(len(grid)):
-        pygame.draw.line(surface, (128,128,128), (sx, sy + i*block_size), (sx+play_width, sy+ i*block_size))
+        pygame.draw.line(surface, (247, 183, 243), (sx, sy + i*block_size), (sx+play_width, sy+ i*block_size))
         for j in range(len(grid[i])):
-            pygame.draw.line(surface, (128, 128, 128), (sx + j*block_size, sy),(sx + j*block_size, sy + play_height))
+            pygame.draw.line(surface, (247, 183, 243), (sx + j*block_size, sy),(sx + j*block_size, sy + play_height))
 
 
 def clear_rows(grid, locked):
@@ -279,7 +290,7 @@ def draw_window(surface, grid, score=0, last_score = 0):
 
     surface.blit(label, (sx + 20, sy + 160))
     # last score
-    label = font.render('High Score: ' + last_score, 1, (255,255,255))
+  #  label = font.render('High Score: ' + last_score, 1, (255,255,255))
 
     sx = top_left_x - 200
     sy = top_left_y + 200
@@ -290,7 +301,7 @@ def draw_window(surface, grid, score=0, last_score = 0):
         for j in range(len(grid[i])):
             pygame.draw.rect(surface, grid[i][j], (top_left_x + j*block_size, top_left_y + i*block_size, block_size, block_size), 0)
 
-    pygame.draw.rect(surface, (255, 0, 0), (top_left_x, top_left_y, play_width, play_height), 5)
+    pygame.draw.rect(surface, (247, 183, 243), (top_left_x, top_left_y, play_width, play_height), 5)
 
     draw_grid(surface, grid)
     #pygame.display.update()
@@ -384,6 +395,7 @@ def main_menu(win):  # *
     run = True
     while run:
         win.fill((0,0,0))
+        draw_text_top(win, 'Welcome to Featherfall!', 60, (255, 255, 255))
         draw_text_middle(win, 'Press Any Key To Play', 60, (255,255,255))
         pygame.display.update()
         for event in pygame.event.get():
