@@ -290,9 +290,9 @@ def draw_window(surface, grid, score=0, last_score = 0):
 
     surface.blit(label, (sx + 20, sy + 160))
     # last score
-  #  label = font.render('High Score: ' + last_score, 1, (255,255,255))
+    label = font.render('High Score: ' + last_score, 1, (255,255,255))
 
-    sx = top_left_x - 200
+    sx = top_left_x - 250
     sy = top_left_y + 200
 
     surface.blit(label, (sx + 20, sy + 160))
